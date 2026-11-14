@@ -1013,3 +1013,9 @@ def test_server_timer_deletes_expired_artifacts(prompt, work, artifact_root):
     finally:
         proc.kill()
         proc.wait()
+
+
+@pytest.mark.parametrize("timeout", ["inf", "-inf", "nan"])
+async def test_execute_rejects_nonfinite_timeout(mcp, work, timeout):
+    with pytest.raises(ToolError, match="finite"):
+        await call(mcp, "execute", target="echo must-not-run", timeout=timeout)

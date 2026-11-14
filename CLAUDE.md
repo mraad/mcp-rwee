@@ -66,6 +66,8 @@ macOS tests pass without finding Windows faults, so test any change to `server.p
 - Copy the project with `robocopy`, excluding `.venv` and `.git`, then run `.venv\Scripts\python.exe -m pytest -q`. Do not put a venv on the `\\Mac` share.
 - Other projects run `python.exe` on this VM. Stop the server by the PID on its port, never by image name.
 
+If `Pro37` is unreachable or invalid, use the SSH host alias `mraadmlwin` for Windows/arcpy validation. Test an isolated copy with its existing `%USERPROFILE%\mcp-rwee\.venv\Scripts\python.exe` so the running installation is unchanged.
+
 The second test machine is a physical x64 machine with ArcGIS Pro 3.7.3, reached with `ssh -o BatchMode=yes $RWEE_HOST` (key login, elevated session). Its host name is in the local Claude memory, not in this repo. The install is at `%USERPROFILE%\mcp-rwee`. Copy with `git archive HEAD | ssh $RWEE_HOST "tar -xf - -C %USERPROFILE%\mcp-rwee"`.
 
 - Closing the SSH session does not stop a server started in it. Use `taskkill /F /T` on the venv launcher's PID, then confirm that port 8765 is free and remove the token.
