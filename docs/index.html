@@ -257,7 +257,7 @@ svg .bar { fill: var(--accent); stroke: none; }
 <p>This tool replaces an exact string. The string must match one time, unless <code>replace_all</code> is true. If the string has no match or too many matches, the tool returns an error and the file does not change. Line endings do not change.</p>
 
 <h3>3.4 <code>execute(target, args=None, timeout=300)</code></h3>
-<p>This tool runs code. The value of <code>target</code> selects how the code runs. The value of <code>timeout</code> must be greater than 0.</p>
+<p>This tool runs code. The value of <code>target</code> selects how the code runs. The value of <code>timeout</code> must be finite and greater than 0.</p>
 <div class="table"><table>
 <tr><th>If <code>target</code> is</th><th>The code runs in</th><th>Imports</th><th><code>args</code></th></tr>
 <tr><td>An existing <code>.py</code> file</td><td>The worker</td><td>Stay loaded between runs</td><td>Allowed</td></tr>

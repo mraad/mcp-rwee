@@ -23,10 +23,13 @@ import traceback
 from pathlib import Path
 
 
+PYTHON_ROOTS = tuple({Path(p).resolve() for p in (sys.prefix, sys.base_prefix)})
+
+
 def is_user_module(file, roots):
     """True for code under the script or work folders, and not for installed packages."""
     path = Path(file).resolve()
-    if any(path.is_relative_to(Path(p).resolve()) for p in (sys.prefix, sys.base_prefix)):
+    if any(path.is_relative_to(root) for root in PYTHON_ROOTS):
         return False  # a .venv inside workdir holds C extensions that cannot load twice
     return any(path.is_relative_to(root) for root in roots)
 

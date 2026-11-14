@@ -6,6 +6,7 @@ import contextlib
 import hashlib
 import json
 import logging
+import math
 import mimetypes
 import os
 import re
@@ -485,8 +486,8 @@ def build(prompt_path, workdir, token, artifacts):
         Returns exit_code, stdout, stderr, timed_out, crashed and artifacts, with an item for each
         file in that folder. Read an artifact with its uri, or download a large one from download_path.
         """
-        if timeout <= 0:
-            raise ToolError(f"timeout must be greater than 0, not {timeout}")
+        if not math.isfinite(timeout) or timeout <= 0:
+            raise ToolError(f"timeout must be finite and greater than 0, not {timeout}")
         script = resolve(target)
         is_script = script.suffix == ".py" and script.is_file()
         if args and not is_script:
